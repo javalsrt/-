@@ -1,0 +1,37 @@
+<!-- 资料详情页 -->
+<view class="page">
+  <view class="material-header" wx:if="{{material}}">
+    <view class="back-btn" bindtap="goBack">&lt; 返回</view>
+    <view class="mat-type {{getTypeClass(material.type)}}">{{getTypeText(material.type)}}</view>
+    <text class="mat-title">{{material.title}}</text>
+    <text class="mat-time">{{material.createdAt}}</text>
+  </view>
+
+  <!-- 图片内容 -->
+  <view class="content-section" wx:if="{{material && material.type === 'PHOTO' && material.fileUrl}}">
+    <image class="mat-image" src="{{material.fileUrl}}" mode="widthFix"></image>
+    <view class="card" wx:if="{{material.content}}">
+      <view class="section-title">OCR 识别文字</view>
+      <view class="mat-content">{{material.content}}</view>
+    </view>
+  </view>
+
+  <!-- 笔记内容 -->
+  <view class="content-section card" wx:if="{{material && material.type === 'NOTE'}}">
+    <view class="mat-content">{{material.content}}</view>
+  </view>
+
+  <!-- AI标签 -->
+  <view class="tags-section card" wx:if="{{material && material.aiTags}}">
+    <view class="section-title">AI 标签</view>
+    <view class="tag-list">
+      <text wx:for="{{parseTags(material.aiTags)}}" wx:key="index" class="tag tag-note">{{item}}</text>
+    </view>
+  </view>
+
+  <!-- 操作按钮 -->
+  <view class="action-bar">
+    <view class="action-btn" bindtap="importToKB">导入知识库</view>
+    <view class="action-btn secondary" bindtap="deleteMaterial">删除</view>
+  </view>
+</view>

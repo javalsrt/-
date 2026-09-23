@@ -1,0 +1,131 @@
+.page {
+  padding: 30rpx;
+  min-height: 100vh;
+  background: #F5F5F7;
+}
+
+.header-info {
+  margin-bottom: 30rpx;
+}
+
+.header-title {
+  font-size: 34rpx;
+  font-weight: 700;
+  color: #1D1D1F;
+  letter-spacing: -0.02em;
+}
+
+.header-sub {
+  font-size: 24rpx;
+  color: #86868B;
+  margin-top: 8rpx;
+  display: block;
+}
+
+.note-editor {
+  background: #FFFFFF;
+  border-radius: 28rpx;
+  padding: 24rpx;
+  margin-bottom: 30rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.04);
+}
+
+.note-title {
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 32rpx;
+  font-weight: 500;
+  padding: 16rpx 0;
+  border-bottom: 2rpx solid #F2F2F7;
+  margin-bottom: 16rpx;
+  color: #1D1D1F;
+}
+
+.note-content {
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 300rpx;
+  font-size: 28rpx;
+  line-height: 1.6;
+  padding: 16rpx 0;
+  color: #1D1D1F;
+}
+
+.editor-actions {
+  display: flex;
+  gap: 16rpx;
+  margin-top: 20rpx;
+}
+
+.editor-btn {
+  flex: 1;
+  padding: 18rpx;
+  background: #1D1D1F;
+  color: #FFFFFF;
+  text-align: center;
+  border-radius: 16rpx;
+  font-size: 28rpx;
+  font-weight: 500;
+}
+
+.editor-btn:active {
+  opacity: 0.85;
+}
+
+.secondary-btn {
+  background: #FFFFFF;
+  color: #1D1D1F;
+  border: 2rpx solid rgba(0, 0, 0, 0.06);
+}
+
+.secondary-btn:active {
+  background: #F5F5F7;
+}
+
+.note-list {
+  margin-top: 20rpx;
+}
+
+.note-item {
+  background: #FFFFFF;
+  border-radius: 28rpx;
+  padding: 24rpx;
+  margin-bottom: 16rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.04);
+}
+
+.note-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8rpx;
+}
+
+.note-item-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #1D1D1F;
+}
+
+.note-item-time {
+  font-size: 22rpx;
+  color: #AEAEB2;
+}
+
+.note-item-content {
+  font-size: 26rpx;
+  color: #555;
+  line-height: 1.5;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.note-item-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8rpx;
+  margin-top: 10rpx;
+}

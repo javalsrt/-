@@ -1,0 +1,67 @@
+<!-- 作业和考试列表 -->
+<view class="page">
+
+  <!-- 筛选标签 -->
+  <view class="tab-bar">
+    <view class="tab-item {{activeTab === item.key ? 'tab-active' : ''}}"
+      wx:for="{{tabs}}" wx:key="key"
+      data-tab="{{item.key}}" bindtap="switchTab">{{item.label}}</view>
+  </view>
+
+  <!-- 未登录 -->
+  <view class="empty" wx:if="{{!isLoggedIn}}">
+    <text class="empty-title">尚未登录</text>
+    <text class="empty-tip">请返回「我的」页登录后查看作业和考试</text>
+  </view>
+
+  <!-- 加载中 -->
+  <view class="empty" wx:elif="{{loading}}">
+    <text class="empty-tip">加载中...</text>
+  </view>
+
+  <!-- 空列表 -->
+  <view class="empty" wx:elif="{{showList.length === 0}}">
+    <text class="empty-title">暂无{{activeTab === 'exam' ? '考试' : activeTab === 'homework' ? '作业' : '作业和考试'}}</text>
+    <text class="empty-tip">老师发布后这里会及时展示</text>
+  </view>
+
+  <!-- 列表 -->
+  <block wx:else>
+    <view class="exam-card card"
+      wx:for="{{showList}}" wx:key="id"
+      data-id="{{item.id}}" data-submitted="{{item.submitted}}"
+      data-examstatus="{{item.examStatus}}" bindtap="openExam">
+
+      <view class="card-top">
+        <view class="type-badge {{item.type === 'exam' ? 'badge-exam' : 'badge-homework'}}">
+          {{item.type === 'exam' ? '考试' : '作业'}}
+        </view>
+        <view class="status-badge {{item.submitted ? 'status-done' : item.examStatus === 'ended' ? 'status-ended' : 'status-ongoing'}}">
+          {{item.submitted ? '已完成' : item.examStatus === 'ended' ? '已结束' : '进行中'}}
+        </view>
+      </view>
+
+      <view class="exam-title">{{item.title}}</view>
+      <view class="exam-course" wx:if="{{item.courseName}}">{{item.courseName}} · {{item.className || ''}}</view>
+
+      <view class="exam-meta">
+        <text class="meta-item">{{item.questionCount || 0}} 题</text>
+        <text class="meta-divider">|</text>
+        <text class="meta-item">满分 {{item.totalScore || 0}}</text>
+        <text class="meta-divider" wx:if="{{item.endTime}}">|</text>
+        <text class="meta-item" wx:if="{{item.endTime}}">截止 {{item.endTime}}</text>
+      </view>
+
+      <!-- 已提交：显示得分 -->
+      <view class="card-footer" wx:if="{{item.submitted}}">
+        <text class="score-label">我的成绩</text>
+        <text class="score-value {{item.myScore >= item.passScore ? 'score-pass' : 'score-fail'}}">{{item.myScore == null ? '评分中' : item.myScore + ' 分'}}</text>
+      </view>
+      <view class="card-footer" wx:else>
+        <text class="todo-label">{{item.examStatus === 'ended' ? '未参加' : '待完成'}}</text>
+        <text class="todo-action">{{item.examStatus === 'ended' ? '—' : '去作答 ›'}}</text>
+      </view>
+    </view>
+  </block>
+
+</view>

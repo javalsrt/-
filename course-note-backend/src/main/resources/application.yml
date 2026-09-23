@@ -1,0 +1,66 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+
+spring:
+  application:
+    name: course-note-backend
+  # 本地敏感配置（API Key 等），已被 .gitignore 排除
+  config:
+    import: optional:file:./application-local.yml
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/course_note?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 50MB
+      max-request-size: 100MB
+
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Shanghai
+
+mybatis-plus:
+  type-aliases-package: com.coursenote.entity
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      id-type: auto
+      logic-delete-field: deleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+
+# AI 服务配置（豆包大模型统一处理文本+图片）
+ai:
+  # LLM 文本模型 (DeepSeek V3 - 对话/总结/标签)
+  llm:
+    api-key: ${DEEPSEEK_API_KEY:your-deepseek-api-key}
+    api-url: https://api.deepseek.com/v1/chat/completions
+    model: deepseek-chat
+  # 视觉模型 (豆包 - 多模态图片识别)
+  vision:
+    api-key: ${ARK_API_KEY:your-ark-api-key}
+    api-url: https://ark.cn-beijing.volces.com/api/v3/responses
+    model: doubao-seed-2-0-mini-260428
+
+# JWT
+jwt:
+  secret: course-note-jwt-secret-key-2024-very-long-secret-key
+  expiration: 604800000  # 7天
+
+# 文件存储路径
+file:
+  upload-dir: /data/course-note/uploads
+
+logging:
+  level:
+    com.coursenote: debug
+

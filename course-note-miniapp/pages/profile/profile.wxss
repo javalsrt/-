@@ -1,0 +1,441 @@
+.page {
+  min-height: 100vh;
+  background: #F5F5F7;
+  padding-bottom: 130rpx;
+}
+
+/* ========== 头部 ========== */
+.profile-header {
+  position: relative;
+  overflow: hidden;
+  padding: 80rpx 30rpx 60rpx;
+  display: flex;
+  align-items: center;
+  gap: 24rpx;
+  color: #1D1D1F;
+  background: #FFFFFF;
+  border-bottom: 1rpx solid rgba(0, 0, 0, 0.06);
+}
+
+.header-bg-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  opacity: 0;
+}
+
+.avatar-wrapper {
+  position: relative;
+  width: 120rpx;
+  height: 120rpx;
+  flex-shrink: 0;
+  z-index: 2;
+}
+
+.avatar {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  border: 4rpx solid rgba(0, 0, 0, 0.06);
+}
+
+.avatar-overlay {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 44rpx;
+  height: 44rpx;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2rpx solid rgba(255, 255, 255, 0.6);
+}
+
+.avatar-edit-icon {
+  font-size: 18rpx;
+  color: #FFFFFF;
+}
+
+.profile-info {
+  flex: 1;
+  z-index: 2;
+}
+
+.nickname {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #1D1D1F;
+  display: block;
+}
+
+.login-tip {
+  font-size: 24rpx;
+  color: #86868B;
+  margin-top: 6rpx;
+  display: block;
+}
+
+.user-detail {
+  font-size: 22rpx;
+  color: #86868B;
+  margin-top: 6rpx;
+  display: block;
+}
+
+/* ========== 通用卡片 ========== */
+.card {
+  margin: 0 30rpx 20rpx;
+  border-radius: 28rpx;
+  overflow: hidden;
+  background: #FFFFFF;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.04);
+}
+
+/* ========== 登录卡片 ========== */
+.login-card {
+  position: relative;
+  z-index: 2;
+  margin-top: 20rpx;
+  padding: 40rpx 30rpx;
+  background: #FFFFFF;
+}
+
+.login-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #1D1D1F;
+  margin-bottom: 30rpx;
+  text-align: center;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+}
+
+.login-input {
+  width: 100%;
+  height: 96rpx;
+  padding: 0 28rpx;
+  box-sizing: border-box;
+  background: #F5F5F7;
+  border-radius: 16rpx;
+  font-size: 30rpx;
+  color: #1D1D1F;
+}
+
+.login-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16rpx;
+  width: 100%;
+  height: 96rpx;
+  border-radius: 16rpx;
+  font-size: 30rpx;
+  font-weight: 500;
+  margin-bottom: 20rpx;
+  border: none;
+  padding: 0;
+}
+
+.login-btn::after {
+  border: none;
+}
+
+.wx-login-btn {
+  background: #1D1D1F;
+  color: #fff;
+}
+
+.dev-login-btn {
+  background: #FFFFFF;
+  color: #1D1D1F;
+  border: 2rpx solid rgba(0, 0, 0, 0.06);
+}
+
+.login-btn-icon {
+  font-size: 24rpx;
+  font-weight: 600;
+  padding: 4rpx 10rpx;
+  border-radius: 8rpx;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.dev-login-btn .login-btn-icon {
+  background: #F5F5F7;
+}
+
+.login-btn:active {
+  opacity: 0.85;
+  transform: scale(0.98);
+}
+
+/* ========== 开发模式选择学生 ========== */
+.dev-login-section {
+  padding: 30rpx;
+}
+
+.dev-header {
+  text-align: center;
+  padding: 40rpx 0 30rpx;
+}
+
+.dev-title {
+  font-size: 34rpx;
+  font-weight: 700;
+  color: #1D1D1F;
+  display: block;
+}
+
+.dev-subtitle {
+  font-size: 24rpx;
+  color: #86868B;
+  margin-top: 8rpx;
+  display: block;
+}
+
+.dev-class-section {
+  background: #fff;
+  border-radius: 28rpx;
+  padding: 24rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.04);
+}
+
+.class-label {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #1D1D1F;
+  margin-bottom: 16rpx;
+  padding-left: 8rpx;
+  border-left: 6rpx solid #0A84FF;
+}
+
+.student-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+}
+
+.student-chip {
+  padding: 12rpx 24rpx;
+  background: #F5F5F7;
+  border-radius: 16rpx;
+  font-size: 24rpx;
+  color: #1D1D1F;
+  transition: all 0.2s;
+}
+
+.student-chip:active {
+  background: #0A84FF;
+  color: #fff;
+  transform: scale(0.95);
+}
+
+.back-btn {
+  width: 100%;
+  height: 88rpx;
+  line-height: 88rpx;
+  text-align: center;
+  background: #FFFFFF;
+  border-radius: 16rpx;
+  font-size: 28rpx;
+  color: #1D1D1F;
+  margin-top: 10rpx;
+  border: none;
+}
+
+.back-btn::after {
+  border: none;
+}
+
+.back-btn:active {
+  background: #F5F5F7;
+}
+
+/* ========== 统计卡片 ========== */
+.stats-card {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20rpx;
+  position: relative;
+  z-index: 2;
+  padding: 30rpx 0;
+  background: #FFFFFF;
+}
+
+.stat-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16rpx;
+  flex: 1;
+}
+
+.stat-value {
+  font-size: 40rpx;
+  font-weight: 700;
+  color: #1D1D1F;
+}
+
+.stat-label {
+  font-size: 24rpx;
+  color: #86868B;
+  margin-top: 6rpx;
+}
+
+.stat-divider {
+  width: 2rpx;
+  height: 60rpx;
+  background: #E5E5EA;
+  align-self: center;
+}
+
+/* ========== 导入课表卡片 ========== */
+.action-card {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  padding: 30rpx;
+  background: #FFFFFF;
+  border-radius: 28rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.04);
+  position: relative;
+  z-index: 2;
+}
+
+.action-icon {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 16rpx;
+  background: #0A84FF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.action-icon text {
+  font-size: 22rpx;
+  font-weight: 600;
+  color: #FFFFFF;
+}
+
+.action-text {
+  flex: 1;
+}
+
+.action-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #1D1D1F;
+  display: block;
+}
+
+.action-desc {
+  font-size: 22rpx;
+  color: #86868B;
+  margin-top: 4rpx;
+  display: block;
+}
+
+.action-arrow {
+  font-size: 40rpx;
+  color: #C7C7CC;
+  flex-shrink: 0;
+}
+
+.action-card:active {
+  opacity: 0.9;
+  transform: scale(0.98);
+}
+
+/* ========== 功能菜单 ========== */
+.menu-card {
+  background: #fff;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.04);
+  position: relative;
+  z-index: 2;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  padding: 30rpx;
+  border-bottom: 1rpx solid #F2F2F7;
+}
+
+.menu-item:last-child {
+  border-bottom: none;
+}
+
+.menu-item:active {
+  background: #F9F9F9;
+}
+
+.menu-item-danger {
+  margin-top: 0;
+}
+
+.menu-icon {
+  width: 44rpx;
+  height: 44rpx;
+  border-radius: 10rpx;
+  background: #F5F5F7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.menu-icon text {
+  font-size: 20rpx;
+  font-weight: 600;
+  color: #1D1D1F;
+}
+
+.menu-icon-danger {
+  background: rgba(255, 59, 48, 0.1);
+}
+
+.menu-icon-danger text {
+  color: #FF3B30;
+}
+
+.menu-text {
+  flex: 1;
+  font-size: 28rpx;
+  color: #1D1D1F;
+}
+
+.menu-text-danger {
+  color: #FF3B30;
+}
+
+.menu-arrow {
+  font-size: 40rpx;
+  color: #C7C7CC;
+  flex-shrink: 0;
+}
+
+.menu-badge {
+  min-width: 32rpx;
+  height: 32rpx;
+  padding: 0 8rpx;
+  margin-left: 12rpx;
+  border-radius: 16rpx;
+  background: #FF3B30;
+  color: #FFFFFF;
+  font-size: 20rpx;
+  line-height: 32rpx;
+  text-align: center;
+  flex-shrink: 0;
+}

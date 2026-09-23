@@ -1,0 +1,85 @@
+<!-- 课段详情页 -->
+<view class="page">
+  <!-- 课段头部信息 -->
+  <view class="session-header" style="background: linear-gradient(135deg, {{courseColor}}, {{courseColor}}cc)">
+    <view class="back-btn" bindtap="goBack">
+      <text>&lt; 返回</text>
+    </view>
+    <view class="session-course-name">{{courseName}}</view>
+    <view class="session-date">{{sessionDate}}</view>
+    <view class="session-time">{{startTime}} - {{endTime}}</view>
+    <view class="session-summary" wx:if="{{summary}}" bindtap="toggleSummary">
+      <text>AI课段总结</text>
+    </view>
+  </view>
+
+  <!-- AI总结展开 -->
+  <view class="summary-card card" wx:if="{{showSummary && summary}}">
+    <view class="section-title">AI 课段总结</view>
+    <rich-text nodes="{{summary}}"></rich-text>
+  </view>
+
+  <!-- 操作工具栏 -->
+  <view class="toolbar">
+    <view class="tool-item" bindtap="goToPhoto">
+      <image src="/images/icon_photo.png" mode="aspectFit"></image>
+      <text>拍照</text>
+    </view>
+    <view class="tool-item" bindtap="goToNote">
+      <image src="/images/icon_note.png" mode="aspectFit"></image>
+      <text>笔记</text>
+    </view>
+    <view class="tool-item" bindtap="goToImport">
+      <image src="/images/icon_import.png" mode="aspectFit"></image>
+      <text>导入</text>
+    </view>
+  </view>
+
+  <!-- 资料分类展示 -->
+    <scroll-view class="material-list" scroll-y scroll-with-animation>
+    <!-- 拍照区 -->
+    <view class="material-section" wx:if="{{photos.length > 0}}">
+      <view class="section-title">拍照笔记 ({{photos.length}})</view>
+      <view wx:for="{{photos}}" wx:key="id" class="material-item card"
+            bindtap="goToMaterialDetail" data-id="{{item.id}}">
+        <view class="material-icon tag-photo"><text>拍照</text></view>
+        <view class="material-info">
+          <view class="material-title">{{item.title}}</view>
+          <view class="material-meta">{{item.createdAt}}</view>
+          <view class="material-content" wx:if="{{item.content}}">{{item.content}}</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 笔记区 -->
+    <view class="material-section" wx:if="{{notes.length > 0}}">
+      <view class="section-title">文字笔记 ({{notes.length}})</view>
+      <view wx:for="{{notes}}" wx:key="id" class="material-item card"
+            bindtap="goToMaterialDetail" data-id="{{item.id}}">
+        <view class="material-icon tag-note"><text>笔记</text></view>
+        <view class="material-info">
+          <view class="material-title">{{item.title}}</view>
+          <view class="material-meta">{{item.createdAt}}</view>
+          <view class="material-content" wx:if="{{item.content}}">{{item.content}}</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 导入资料区 -->
+    <view class="material-section" wx:if="{{thirdParty.length > 0}}">
+      <view class="section-title">导入资料 ({{thirdParty.length}})</view>
+      <view wx:for="{{thirdParty}}" wx:key="id" class="material-item card"
+            bindtap="goToMaterialDetail" data-id="{{item.id}}">
+        <view class="material-icon tag-external"><text>导入</text></view>
+        <view class="material-info">
+          <view class="material-title">{{item.title}}</view>
+          <view class="material-meta">{{item.source}} | {{item.createdAt}}</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="empty-state" wx:if="{{totalCount === 0}}">
+      <text>还没有资料，开始记录吧！</text>
+    </view>
+  </scroll-view>
+</view>

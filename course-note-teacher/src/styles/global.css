@@ -1,0 +1,615 @@
+/* 全局业务样式 — 页面容器、卡片、工具栏、统计卡片、列表等
+ * 所有页面共享的通用样式，统一苹果极简视觉规范
+ */
+
+/* ===== 页面容器（大留白、居中） ===== */
+.page-container {
+  padding: 40px 48px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .page-container {
+    padding: 24px 20px;
+  }
+}
+
+/* ===== 页面标题区域 ===== */
+.page-header {
+  margin-bottom: 40px;
+}
+.page-header h2 {
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: #1D1D1F;
+  margin-bottom: 6px;
+}
+.page-header p {
+  font-size: 15px;
+  color: #86868B;
+  font-weight: 400;
+}
+
+@media (max-width: 768px) {
+  .page-header h2 {
+    font-size: 24px;
+  }
+}
+
+/* ===== 统计卡片行（水平排列） ===== */
+.stat-cards {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.stat-card {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 20px 24px;
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 12px;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: default;
+}
+
+.stat-card:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  transform: translateY(-1px);
+}
+
+.stat-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: rgba(0, 113, 227, 0.08);
+  color: #0071E3;
+}
+
+.stat-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.stat-info h3 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1D1D1F;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-bottom: 2px;
+}
+
+.stat-info p {
+  font-size: 13px;
+  color: #86868B;
+  font-weight: 400;
+  line-height: 1.3;
+}
+
+@media (max-width: 900px) {
+  .stat-cards {
+    flex-wrap: wrap;
+  }
+  .stat-card {
+    min-width: calc(50% - 8px);
+  }
+}
+
+@media (max-width: 600px) {
+  .stat-card {
+    min-width: 100%;
+  }
+}
+
+/* ===== 应用卡片（通用卡片） ===== */
+.app-card {
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 12px;
+  padding: 24px;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.app-card:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+.app-card-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1D1D1F;
+  margin-bottom: 16px;
+  letter-spacing: -0.01em;
+}
+
+/* ===== 列表项（通用列表） ===== */
+.list-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+  transition: background 0.15s ease;
+  cursor: pointer;
+}
+.list-item:hover {
+  background: rgba(0, 0, 0, 0.01);
+}
+.list-item:last-child {
+  border-bottom: none;
+}
+
+.item-label {
+  font-size: 15px;
+  font-weight: 500;
+  color: #1D1D1F;
+  line-height: 1.4;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.item-meta {
+  font-size: 13px;
+  color: #86868B;
+  line-height: 1.4;
+  margin-top: 2px;
+}
+
+/* ===== 空提示 ===== */
+.empty-tip {
+  text-align: center;
+  padding: 32px 0;
+  color: #AEAEB2;
+  font-size: 14px;
+}
+
+/* ===== 工具栏 ===== */
+.table-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+/* ===== 课程表格样式（Schedule） ===== */
+.schedule-grid {
+  display: grid;
+  grid-template-columns: 80px repeat(7, 1fr);
+  gap: 8px;
+  align-items: stretch;
+}
+
+.schedule-header {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1D1D1F;
+  padding: 12px 8px;
+  text-align: center;
+  background: #F5F5F7;
+  border-radius: 8px;
+}
+
+.schedule-cell {
+  min-height: 80px;
+  padding: 8px;
+  border-radius: 8px;
+  background: #FAFAFA;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  transition: background 0.2s;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.schedule-cell.empty {
+  background: transparent;
+  border: 1px solid transparent;
+}
+
+.time-cell {
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  background: #F5F5F7;
+  font-weight: 500;
+}
+
+.time-section {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1D1D1F;
+}
+
+.time-range {
+  font-size: 11px;
+  color: #86868B;
+  font-weight: 400;
+}
+
+.empty-cell {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: #D1D1D6;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.02);
+  min-height: 64px;
+}
+
+.course-block {
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #FFFFFF;
+  border-top: 1px solid rgba(0, 0, 0, 0.04);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-bottom: 6px;
+}
+.course-block:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transform: translateY(-1px);
+}
+
+.course-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1D1D1F;
+  margin-bottom: 4px;
+  line-height: 1.2;
+}
+
+.course-info {
+  font-size: 12px;
+  color: #55555C;
+  line-height: 1.3;
+  font-weight: 500;
+}
+
+.course-time {
+  font-size: 11px;
+  color: #86868B;
+  margin-top: 4px;
+  font-weight: 400;
+}
+
+/* 课程详情弹窗 */
+.course-detail {
+  padding: 8px 4px;
+}
+
+.detail-row {
+  display: flex;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.detail-row:last-child {
+  border-bottom: none;
+}
+
+.detail-label {
+  width: 90px;
+  flex-shrink: 0;
+  font-size: 14px;
+  color: #86868B;
+  font-weight: 400;
+}
+
+.detail-value {
+  flex: 1;
+  font-size: 14px;
+  color: #1D1D1F;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+/* ===== 占位卡片 ===== */
+.placeholder-card {
+  text-align: center;
+  padding: 60px 40px;
+  color: #AEAEB2;
+  font-size: 15px;
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 12px;
+}
+
+/* ===== TDesign 组件风格覆写（全局极简） ===== */
+
+/* 卡片 — 无深色边框，极简阴影 */
+.t-card {
+  border-radius: 12px !important;
+  box-shadow: none !important;
+  background: #FFFFFF !important;
+}
+.t-card__title {
+  font-weight: 600 !important;
+  font-size: 16px !important;
+  color: #1D1D1F !important;
+  letter-spacing: -0.01em !important;
+  padding: 20px 24px 0 !important;
+}
+.t-card__body {
+  padding: 20px 24px !important;
+}
+.t-card__header {
+  border-bottom: none !important;
+  padding: 0 !important;
+}
+
+/* 表格 — 极简线条 */
+.t-table {
+  font-size: 14px !important;
+}
+.t-table th {
+  font-weight: 600 !important;
+  color: #1D1D1F !important;
+  background: #F5F5F7 !important;
+  border-bottom: 1px solid rgba(0,0,0,0.06) !important;
+}
+.t-table td {
+  color: #1D1D1F !important;
+  border-bottom: 1px solid rgba(0,0,0,0.04) !important;
+}
+.t-table tr:hover td {
+  background: #FAFAFA !important;
+}
+.t-table__pagination {
+  margin-top: 16px;
+}
+
+/* 按钮 — 圆角、低饱和 */
+.t-button--theme-primary {
+  border-radius: 10px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.02em !important;
+  background: #1D1D1F !important;
+  border-color: #1D1D1F !important;
+  color: #FFFFFF !important;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+.t-button--theme-primary:hover {
+  opacity: 0.85 !important;
+  background: #1D1D1F !important;
+  border-color: #1D1D1F !important;
+}
+.t-button--theme-default {
+  border-radius: 10px !important;
+  font-weight: 500 !important;
+  border-color: rgba(0,0,0,0.08) !important;
+  color: #1D1D1F !important;
+  background: #FFFFFF !important;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+.t-button--theme-default:hover {
+  background: #F5F5F7 !important;
+  border-color: rgba(0,0,0,0.12) !important;
+}
+
+/* 对话框 — 大圆角 */
+.t-dialog {
+  border-radius: 16px !important;
+}
+.t-dialog__header {
+  font-weight: 600 !important;
+  font-size: 17px !important;
+  color: #1D1D1F !important;
+  padding: 20px 24px !important;
+  border-bottom: 1px solid rgba(0,0,0,0.06) !important;
+}
+.t-dialog__body {
+  padding: 24px !important;
+}
+.t-dialog__footer {
+  padding: 16px 24px !important;
+  border-top: 1px solid rgba(0,0,0,0.06) !important;
+}
+
+/* 表单 — 极简输入 */
+.t-input,
+.t-select__input,
+.t-textarea__inner,
+.t-time-picker__input {
+  border-radius: 10px !important;
+  border-color: rgba(0,0,0,0.08) !important;
+  background: #FAFAFA !important;
+  font-size: 15px !important;
+  color: #1D1D1F !important;
+  transition: all 0.2s ease !important;
+}
+.t-input:hover,
+.t-select__input:hover,
+.t-textarea__inner:hover,
+.t-time-picker__input:hover {
+  border-color: rgba(0,0,0,0.12) !important;
+}
+.t-input.t-is-focused,
+.t-select__input.t-is-focused,
+.t-textarea__inner.t-is-focused,
+.t-time-picker__input.t-is-focused {
+  border-color: #0071E3 !important;
+  box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.08) !important;
+  background: #FFFFFF !important;
+}
+
+/* 标签 — 极淡背景 */
+.t-tag--theme-primary.t-tag--variant-light {
+  background: rgba(0, 113, 227, 0.08) !important;
+  color: #0071E3 !important;
+  border: none !important;
+  font-weight: 500 !important;
+}
+.t-tag--theme-success.t-tag--variant-light {
+  background: rgba(52, 199, 89, 0.08) !important;
+  color: #34C759 !important;
+  border: none !important;
+}
+.t-tag--theme-danger.t-tag--variant-light {
+  background: rgba(255, 59, 48, 0.08) !important;
+  color: #FF3B30 !important;
+  border: none !important;
+}
+
+/* 链接 */
+.t-link--theme-primary {
+  color: #0071E3 !important;
+  transition: color 0.2s ease !important;
+}
+.t-link--theme-primary:hover {
+  color: #0051A2 !important;
+}
+.t-link--theme-danger {
+  color: #FF3B30 !important;
+  transition: color 0.2s ease !important;
+}
+.t-link--theme-danger:hover {
+  color: #D32F2F !important;
+}
+
+/* 弹框确认 */
+.t-popconfirm__content {
+  border-radius: 12px !important;
+}
+
+/* 上传 */
+.t-upload {
+  border-radius: 12px !important;
+}
+
+/* 分页 */
+.t-pagination__pager .t-pagination__number {
+  border-radius: 8px !important;
+  font-weight: 500 !important;
+}
+.t-pagination__number.t-is-current {
+  background: #1D1D1F !important;
+  color: #FFFFFF !important;
+}
+
+/* 课程编辑/添加弹窗：统一加大留白、纵向标签 */
+.course-dialog .t-dialog__body {
+  padding: 32px 36px !important;
+}
+
+.course-dialog .t-form--layout-vertical .t-form-item {
+  margin-bottom: 18px;
+}
+
+.course-dialog .t-form--layout-vertical .t-form-item__label {
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #1d1d1f;
+}
+
+.course-dialog .t-row {
+  margin-bottom: 8px;
+}
+
+.course-dialog .t-row:last-child {
+  margin-bottom: 0;
+}
+
+/* ===== Animated List 动画（参考 reactbits.dev） ===== */
+
+/* 列表项渐入动画 */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* 通用动画列表容器 */
+.animated-list {
+  position: relative;
+}
+
+/* 带渐变遮罩的滚动列表 */
+.animated-list.masked::before,
+.animated-list.masked::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 48px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.animated-list.masked::before {
+  top: 0;
+  background: linear-gradient(to bottom, #FFFFFF 0%, transparent 100%);
+}
+
+.animated-list.masked::after {
+  bottom: 0;
+  background: linear-gradient(to top, #FFFFFF 0%, transparent 100%);
+}
+
+/* 动画列表项 — staggered fade-in */
+.animated-list-item {
+  opacity: 0;
+  animation: fadeInUp 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation-delay: calc(var(--index, 0) * 60ms);
+}
+
+/* 卡片网格动画项 */
+.animated-card-item {
+  opacity: 0;
+  animation: fadeInUp 0.45s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation-delay: calc(var(--index, 0) * 70ms);
+}
+
+/* 表格行动画 */
+.animated-table-row {
+  opacity: 0;
+  animation: fadeIn 0.35s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation-delay: calc(var(--index, 0) * 50ms);
+}
+
+/* 统计卡片 staggered 动画 */
+.animated-stat-card {
+  opacity: 0;
+  animation: fadeInUp 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation-delay: calc(var(--index, 0) * 80ms);
+}
+
+/* 选中高亮效果 */
+.animated-list-item.selected,
+.animated-card-item.selected {
+  background: rgba(0, 113, 227, 0.04);
+  border-color: rgba(0, 113, 227, 0.2);
+}
+
+/* hover 微升效果 */
+.animated-list-item:hover,
+.animated-card-item:hover {
+  transform: translateY(-2px);
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+

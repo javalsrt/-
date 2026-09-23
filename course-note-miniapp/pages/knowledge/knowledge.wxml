@@ -1,0 +1,149 @@
+<!-- AI知识库页面 -->
+<view class="page {{activeTab === 'chat' ? 'page-chat' : ''}}">
+  <view class="header">
+    <text class="header-title">课程知识库</text>
+  </view>
+
+  <!-- 课程选择（横向滚动条） -->
+  <scroll-view class="course-bar" scroll-x enhanced show-scrollbar="false" wx:if="{{courses.length > 0}}">
+    <view class="course-bar-inner">
+      <view wx:for="{{courses}}" wx:key="id"
+            class="course-chip {{selectedCourseId === item.id ? 'active' : ''}}"
+            bindtap="selectCourse" data-id="{{item.id}}">
+        <view class="chip-dot" style="background: {{item.color}}"></view>
+        <text class="chip-name">{{item.name}}</text>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 无课程数据 -->
+  <view class="empty-state" wx:if="{{!courses.length}}">
+    <text class="empty-icon">📚</text>
+    <text class="empty-title">暂无课程数据</text>
+    <text class="empty-desc">请先导入课表或联系老师添加课程</text>
+  </view>
+
+  <!-- Tab切换：AI助手 | 知识库文档 -->
+  <view class="kb-tabs" wx:if="{{selectedCourseId}}">
+    <view class="kb-tab {{activeTab === 'chat' ? 'active' : ''}}" bindtap="switchTab" data-tab="chat">
+      <text>AI 学习助手</text>
+    </view>
+    <view class="kb-tab {{activeTab === 'docs' ? 'active' : ''}}" bindtap="switchTab" data-tab="docs">
+      <text>知识库文档</text>
+    </view>
+  </view>
+
+  <!-- AI对话区域 -->
+  <view class="chat-section" wx:if="{{selectedCourseId && activeTab === 'chat'}}">
+    <!-- 加载提示 -->
+    <view class="kb-loading" wx:if="{{isLoadingKb}}">
+      <view class="loading-dots">
+        <view class="dot"></view>
+        <view class="dot"></view>
+        <view class="dot"></view>
+      </view>
+      <text class="kb-loading-text">正在加载课程知识库...</text>
+    </view>
+
+    <!-- 聊天记录（可滚动） -->
+    <scroll-view class="chat-messages" id="chatMessages" scroll-y scroll-into-view="{{scrollToView}}" enhanced>
+      <view class="chat-messages-inner">
+        <view wx:for="{{chatMessages}}" wx:key="index" class="chat-msg {{item.role}}">
+          <view class="msg-avatar {{item.role}}">{{item.role === 'user' ? '我' : 'AI'}}</view>
+          <view class="msg-bubble">
+            <view class="msg-content">{{item.content}}</view>
+            <view class="msg-loading" wx:if="{{item.role === 'assistant' && !item.content && isStreaming}}">
+              <text>AI 正在思考</text>
+              <view class="loading-dots">
+                <view class="dot"></view>
+                <view class="dot"></view>
+                <view class="dot"></view>
+              </view>
+            </view>
+          </view>
+        </view>
+        <!-- 快捷问题（空对话时显示在消息底部） -->
+        <view class="quick-questions" wx:if="{{chatMessages.length <= 1}}">
+          <text class="quick-title">你可以这样问</text>
+          <view class="quick-list">
+            <view wx:for="{{quickQuestions}}" wx:key="*this" class="quick-chip"
+                  bindtap="sendQuickQuestion" data-question="{{item}}">
+              <text>{{item}}</text>
+            </view>
+          </view>
+        </view>
+        <view id="msgBottom"></view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 聊天输入（固定在底部导航栏上方） -->
+  <view class="chat-input-area" wx:if="{{selectedCourseId && activeTab === 'chat'}}">
+    <view class="chat-input-wrapper">
+      <input class="chat-input" placeholder="输入你对课程内容的疑问..." value="{{chatInput}}"
+             bindinput="onChatInput" bindconfirm="sendMessage" confirm-type="send" />
+      <view class="send-btn {{hasInput ? 'active' : ''}}" bindtap="sendMessage">
+        <text>发送</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 文档列表 -->
+  <view class="doc-section" wx:if="{{selectedCourseId && activeTab === 'docs'}}">
+    <!-- 文档搜索 -->
+    <view class="doc-search">
+      <view class="search-input-wrapper">
+        <text class="search-icon">🔍</text>
+        <input class="doc-search-input" placeholder="搜索文档标题 / 摘要" value="{{docSearch}}"
+               bindinput="onDocSearchInput" />
+      </view>
+    </view>
+
+    <!-- 文档列表 -->
+    <view wx:if="{{filteredDocuments.length > 0}}">
+      <view wx:for="{{filteredDocuments}}" wx:key="id" class="doc-item card"
+            data-id="{{item.id}}" data-material-id="{{item.materialId}}" data-url="{{item.fileUrl}}" data-title="{{item.title}}"
+            bindtap="onDocTap" bindlongpress="showDocActions">
+        <view class="doc-badge" style="background: {{docTypeInfo(item).bg}}; color: {{docTypeInfo(item).color}}">
+          <text>{{docTypeInfo(item).text}}</text>
+        </view>
+        <view class="doc-info">
+          <view class="doc-title-row">
+            <text class="doc-title">{{item.title}}</text>
+            <view class="doc-status" style="background: {{docStatusInfo(item).bg}}; color: {{docStatusInfo(item).color}}">
+              <text>{{docStatusInfo(item).text}}</text>
+            </view>
+          </view>
+          <text class="doc-summary">{{item.summary || '暂无摘要'}}</text>
+          <view class="doc-meta-row">
+            <text class="doc-time" wx:if="{{item.createdAt}}">{{item.createdAt}}</text>
+            <text class="doc-size" wx:if="{{item.fileSize}}">{{formatFileSize(item.fileSize)}}</text>
+          </view>
+        </view>
+        <view class="doc-delete" catchtap="onDeleteTap" data-id="{{item.id}}">
+          <text class="delete-icon">🗑</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 搜索为空 -->
+    <view class="empty-state" wx:elif="{{docSearch}}">
+      <text class="empty-icon">🔍</text>
+      <text class="empty-title">未找到相关文档</text>
+      <text class="empty-desc">换个关键词试试</text>
+    </view>
+
+    <!-- 知识库无文档 -->
+    <view class="empty-state" wx:else>
+      <text class="empty-icon">📝</text>
+      <text class="empty-title">该课程知识库暂无文档</text>
+      <text class="empty-desc">点击下方上传按钮添加学习资料</text>
+    </view>
+  </view>
+
+  <!-- 悬浮上传按钮（仅在文档列表 Tab 显示） -->
+  <view class="fab-upload" wx:if="{{selectedCourseId && activeTab === 'docs'}}" bindtap="showUploadMenu">
+    <text class="fab-icon">+</text>
+  </view>
+
+</view>

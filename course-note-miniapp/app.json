@@ -1,0 +1,45 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/course/course",
+    "pages/session/session",
+    "pages/photo/photo",
+    "pages/note/note",
+    "pages/knowledge/knowledge",
+    "pages/profile/profile",
+    "pages/material-detail/material-detail",
+    "pages/exam-list/exam-list",
+    "pages/exam-take/exam-take",
+    "pages/exam-result/exam-result"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#FFFFFF",
+    "navigationBarTitleText": "课程笔记助手",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#F5F5F7"
+  },
+  "tabBar": {
+    "custom": true,
+    "color": "#86868B",
+    "selectedColor": "#0A84FF",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "课表"
+      },
+      {
+        "pagePath": "pages/knowledge/knowledge",
+        "text": "知识库"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "text": "我的"
+      }
+    ]
+  },
+  "usingComponents": {},
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

@@ -1,0 +1,95 @@
+<!-- 个人中心 -->
+<view class="page">
+
+  <!-- ========== 未登录状态 ========== -->
+  <view class="login-section" wx:if="{{!isLoggedIn}}">
+    <view class="profile-header">
+      <image class="header-bg-img" src="/images/bg_profile.png" mode="aspectFill"></image>
+      <view class="avatar-wrapper">
+        <image class="avatar" src="/images/default_avatar.png" mode="aspectFill"></image>
+      </view>
+      <view class="profile-info">
+        <text class="nickname">未登录</text>
+        <text class="login-tip">登录后可查看完整功能</text>
+      </view>
+    </view>
+
+    <view class="login-card card">
+      <view class="login-title">账号登录</view>
+      <view class="login-form">
+        <input class="login-input" placeholder="请输入账号（学号/工号）" value="{{loginForm.username}}"
+          data-field="username" bindinput="onLoginInput" />
+        <input class="login-input" placeholder="请输入密码" password="{{true}}" value="{{loginForm.password}}"
+          data-field="password" bindinput="onLoginInput" />
+        <button class="login-btn wx-login-btn" bindtap="handleAccountLogin">
+          <text>登录</text>
+        </button>
+        <text class="login-tip">{{loginError}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- ========== 已登录状态 ========== -->
+  <block wx:if="{{isLoggedIn}}">
+    <view class="profile-header">
+      <image class="header-bg-img" src="/images/bg_profile.png" mode="aspectFill"></image>
+      <view class="avatar-wrapper" bindtap="changeAvatar">
+        <image class="avatar" src="{{userInfo.avatarUrl || '/images/default_avatar.png'}}" mode="aspectFill"></image>
+        <view class="avatar-overlay">
+          <text class="avatar-edit-icon">相机</text>
+        </view>
+      </view>
+      <view class="profile-info">
+        <text class="nickname">{{userInfo.nickname || userInfo.realName || '用户'}}</text>
+        <text class="user-detail">{{userInfo.school || ''}} · {{userInfo.major || ''}}</text>
+      </view>
+    </view>
+
+    <view class="stats-card card">
+      <view class="stat-cell">
+        <text class="stat-value">{{stats.courseCount}}</text>
+        <text class="stat-label">课程数</text>
+      </view>
+      <view class="stat-divider"></view>
+      <view class="stat-cell">
+        <text class="stat-value">{{stats.knowledgeCount}}</text>
+        <text class="stat-label">知识库数</text>
+      </view>
+      <view class="stat-divider"></view>
+      <view class="stat-cell">
+        <text class="stat-value">{{stats.noteCount || 0}}</text>
+        <text class="stat-label">笔记数</text>
+      </view>
+    </view>
+
+    <view class="menu-card card">
+      <view class="menu-item" bindtap="goToSchedule">
+        <view class="menu-icon"><text>课表</text></view>
+        <text class="menu-text">我的课表</text>
+        <text class="menu-arrow">›</text>
+      </view>
+      <view class="menu-item" bindtap="goToKnowledge">
+        <view class="menu-icon"><text>知识库</text></view>
+        <text class="menu-text">AI知识库</text>
+        <text class="menu-arrow">›</text>
+      </view>
+      <view class="menu-item" bindtap="goToExams">
+        <view class="menu-icon"><text>考试</text></view>
+        <text class="menu-text">作业和考试</text>
+        <view class="menu-badge" wx:if="{{examTodoCount > 0}}">{{examTodoCount}}</view>
+        <text class="menu-arrow">›</text>
+      </view>
+      <view class="menu-item" bindtap="showAbout">
+        <view class="menu-icon"><text>关于</text></view>
+        <text class="menu-text">关于我们</text>
+        <text class="menu-arrow">›</text>
+      </view>
+      <view class="menu-item menu-item-danger" bindtap="handleLogout">
+        <view class="menu-icon menu-icon-danger"><text>退出</text></view>
+        <text class="menu-text menu-text-danger">退出登录</text>
+        <text class="menu-arrow">›</text>
+      </view>
+    </view>
+  </block>
+
+</view>

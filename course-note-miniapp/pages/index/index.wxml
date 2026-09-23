@@ -1,0 +1,151 @@
+<!-- 课程表首页 -->
+<view class="page">
+  <!-- 顶部栏 -->
+  <view class="header">
+    <view class="header-row">
+      <text class="header-title">课程表</text>
+      <picker mode="selector" range="{{weekPickerRange}}" value="{{weekPickerIndex}}" bindchange="onWeekPickerChange">
+        <view class="week-picker">
+          <text class="week-picker-text">第{{currentWeek}}周</text>
+          <text class="week-picker-arrow">▼</text>
+        </view>
+      </picker>
+      <view class="action-btn" bindtap="goToToday">
+        <text>今天</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 日期导航栏（点击选中高亮，今天有小圆点） -->
+  <scroll-view class="date-nav" scroll-x>
+    <view wx:for="{{weekDays}}" wx:key="index"
+          class="date-item {{item.isSelected ? 'active' : ''}}"
+          bindtap="selectDate" data-index="{{index}}" data-date="{{item.date}}">
+      <text class="date-weekday">{{item.weekday}}</text>
+      <text class="date-num">{{item.day}}</text>
+      <text wx:if="{{item.isToday}}" class="today-dot"></text>
+    </view>
+  </scroll-view>
+
+  <!-- 假期/未开学提示条：仅提示，不隐藏课表（参照 aiStudy 安卓端，假期也可查看课程） -->
+  <view wx:if="{{!scheduleHidden && semNotice}}" class="sem-notice-bar">
+    <text class="sem-notice-icon">{{semStatus === 'before' ? '⏰' : '🎓'}}</text>
+    <text class="sem-notice-text">{{semNotice}} · 课表可正常查看</text>
+  </view>
+
+  <!-- 学期状态空态（仅在学期与课表数据都为空时显示） -->
+  <view wx:if="{{scheduleHidden}}" class="vacation-card card">
+    <view class="vacation-icon">📌</view>
+    <text class="vacation-notice">{{semNotice || '新学期安排待定'}}</text>
+    <text class="vacation-sub">请等待教务安排新学期</text>
+  </view>
+
+  <!-- 课表内容 -->
+  <scroll-view class="schedule-content" scroll-y enable-back-to-top>
+    <!-- 当前课段状态 -->
+    <view class="current-session-card card" wx:if="{{currentSession}}" bindtap="goToCurrentSession">
+      <view class="current-session-header">
+        <view class="live-dot"></view>
+        <text class="current-session-title">正在上课</text>
+      </view>
+      <view class="current-session-course">{{currentSession.courseName}}</view>
+      <view class="current-session-info">
+        <text>{{currentSession.classroom}}</text>
+        <text>{{currentSession.startTime}} - {{currentSession.endTime}}</text>
+      </view>
+      <view class="current-session-actions">
+        <view class="mini-btn" catchtap="goToPhoto">拍照</view>
+        <view class="mini-btn" catchtap="goToNote">笔记</view>
+        <view class="mini-btn end-btn" catchtap="endSession">下课</view>
+      </view>
+    </view>
+
+    <!-- 每日课程列表（左右滑动切换日期） -->
+    <swiper wx:if="{{!scheduleHidden}}" class="day-swiper" current="{{selectedDayIndex}}" bindchange="onSwiperChange" duration="200"
+            bindtouchstart="onSwiperTouchStart" bindtouchend="onSwiperTouchEnd" style="height: {{swiperHeight}}rpx">
+      <swiper-item wx:for="{{swiperCourses}}" wx:key="index" class="swiper-slide">
+        <view class="course-list">
+          <view class="section-title">{{swiperDays[index]}}课程</view>
+          <view wx:if="{{item.length === 0}}" class="empty-state">
+            <block wx:if="{{!scheduleLoggedIn}}">
+              <text>班级课表需要登录后查看</text>
+              <view class="empty-login-btn" bindtap="goToLogin">去登录</view>
+            </block>
+            <text wx:else>当天没有课程安排</text>
+          </view>
+          <view wx:for="{{item}}" wx:for-item="course" wx:key="id" class="course-card card">
+            <view class="course-time">
+              <text class="time-start">{{course.startTimeText}}</text>
+              <text class="time-end">{{course.endTimeText}}</text>
+            </view>
+
+            <view class="course-main">
+              <view class="course-name">{{course.name}}</view>
+            </view>
+
+            <view class="course-meta">
+              <view class="course-meta-row">
+                <text wx:if="{{course.teacher}}">{{course.teacher}}</text>
+                <text wx:if="{{course.classroom}}"> | {{course.classroom}}</text>
+              </view>
+              <view class="course-meta-week" wx:if="{{course.weeksText}}">
+                <text>第{{course.weeksText}}周</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </swiper-item>
+    </swiper>
+
+    <!-- 本周课表（网格布局，参照 aiStudy 安卓端：标准作息 + 午/晚餐分隔 + 课程色块） -->
+    <view wx:if="{{!scheduleHidden}}" class="week-overview">
+      <view class="section-title">本周课表</view>
+      <view wx:if="{{weekScheduleEmpty}}" class="empty-state">
+        <block wx:if="{{!scheduleLoggedIn}}">
+          <text>班级课表需要登录后查看</text>
+          <view class="empty-login-btn" bindtap="goToLogin">去登录</view>
+        </block>
+        <text wx:else>本学期暂无班级课表安排</text>
+      </view>
+      <view wx:else class="week-grid-wrapper">
+        <!-- 网格头部：节次 + 周几/日期（今天蓝色胶囊） -->
+        <view class="week-grid week-grid-header">
+          <view class="grid-time grid-time-head">节次</view>
+          <view wx:for="{{weekGridDays}}" wx:key="name"
+            class="grid-header-cell {{item.isToday ? 'today-header' : ''}}">
+            <text class="gh-name">{{item.name}}</text>
+            <text class="gh-date">{{item.date}}</text>
+          </view>
+        </view>
+
+        <!-- 网格行：标准作息大节行 + 午/晚餐分隔行 -->
+        <block wx:for="{{weekGrid}}" wx:key="_key" wx:for-item="r">
+          <!-- 休息分隔行 -->
+          <view wx:if="{{r.isBreak}}" class="grid-break-row">
+            <text class="grid-break-text">{{r.breakText}}</text>
+          </view>
+          <!-- 大节行 -->
+          <view wx:else class="week-grid {{r.isCurrentTime ? 'current-time-row' : ''}}">
+            <view class="grid-time {{r.isCurrentTime ? 'current-time-label' : ''}}">
+              <text class="grid-time-start">{{r.startTime}}</text>
+              <text class="grid-time-end">{{r.endTime}}</text>
+            </view>
+            <view wx:for="{{gridCols}}" wx:key="*this" wx:for-item="dayIndex"
+              class="grid-cell {{todayCol === dayIndex ? 'today-col' : ''}} {{r['day' + dayIndex].conflict ? 'conflict-cell' : ''}}"
+              data-day="{{dayIndex}}" data-start="{{r.startTime}}" data-end="{{r.endTime}}" bindtap="onGridCellTap">
+              <block wx:if="{{r['day' + dayIndex] && r['day' + dayIndex].length > 0}}">
+                <view wx:for="{{r['day' + dayIndex]}}" wx:for-item="c" wx:key="id"
+                  class="grid-course" style="background: {{c.bgColor}};">
+                  <text class="gc-name">{{c.name}}</text>
+                  <text wx:if="{{c.classroom}}" class="gc-room">{{c.classroom}}</text>
+                </view>
+              </block>
+            </view>
+          </view>
+        </block>
+      </view>
+    </view>
+
+
+  </scroll-view>
+</view>

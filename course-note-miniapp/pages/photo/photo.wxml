@@ -1,0 +1,47 @@
+<!-- 拍照笔记页面 -->
+<view class="page">
+  <view class="header-info">
+    <text class="header-title">拍照笔记</text>
+    <text class="header-sub">拍照后自动OCR识别并归入课段</text>
+  </view>
+
+  <!-- 拍照/相册选择 -->
+  <view class="photo-toolbar">
+    <view class="photo-btn" bindtap="takePhoto">
+      <image src="/images/icon_camera.png" mode="aspectFit"></image>
+      <text>拍照</text>
+    </view>
+    <view class="photo-btn" bindtap="chooseFromAlbum">
+      <image src="/images/icon_album.png" mode="aspectFit"></image>
+      <text>相册选择</text>
+    </view>
+  </view>
+
+  <!-- OCR识别结果 -->
+  <view class="ocr-result card" wx:if="{{ocrText}}">
+    <view class="section-title">OCR 识别结果</view>
+    <view class="ocr-preview">
+      <image src="{{photoPreview}}" mode="widthFix" wx:if="{{photoPreview}}"></image>
+    </view>
+    <view class="ocr-text">{{ocrText}}</view>
+    <view class="ocr-actions">
+      <view class="text-action" bindtap="clearPhoto">清空</view>
+      <view class="text-action" bindtap="copyOcrText">复制文字</view>
+    </view>
+  </view>
+
+  <!-- 已保存的照片笔记 -->
+  <view class="saved-section">
+    <view class="section-title">本课段照片笔记</view>
+    <view wx:for="{{photos}}" wx:key="id" class="photo-item card">
+      <image src="{{item.fileUrl}}" mode="aspectFill" wx:if="{{item.fileUrl}}"></image>
+      <view class="photo-info">
+        <text class="photo-title">{{item.title}}</text>
+        <text class="photo-ocr" wx:if="{{item.content}}">{{item.content}}</text>
+      </view>
+    </view>
+    <view class="empty-state" wx:if="{{photos.length === 0}}">
+      <text>还没有拍照笔记</text>
+    </view>
+  </view>
+</view>

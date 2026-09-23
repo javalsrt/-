@@ -1,0 +1,591 @@
+/** 课程表首页 - iOS 极简风格 **/
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 130rpx;
+  background: #F5F5F7;
+}
+
+.header {
+  background: #FFFFFF;
+  padding: 16rpx 20rpx;
+  color: #1D1D1F;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1rpx solid rgba(0, 0, 0, 0.06);
+}
+
+.header-row {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.header-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.action-btn {
+  background: #F5F5F7;
+  color: #1D1D1F;
+  padding: 6rpx 16rpx;
+  border-radius: 16rpx;
+  font-size: 22rpx;
+  flex-shrink: 0;
+  font-weight: 500;
+}
+
+.action-btn:active {
+  background: #E5E5EA;
+}
+
+.week-picker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8rpx;
+  background: #F5F5F7;
+  padding: 6rpx 20rpx;
+  border-radius: 16rpx;
+}
+
+.week-picker-text {
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #1D1D1F;
+}
+
+.week-picker-arrow {
+  font-size: 18rpx;
+  color: #86868B;
+}
+
+.date-nav {
+  background: #FFFFFF;
+  white-space: nowrap;
+  padding: 10rpx 10rpx;
+  border-bottom: 1rpx solid rgba(0, 0, 0, 0.06);
+}
+
+.date-item {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10rpx 24rpx;
+  margin: 0 6rpx;
+  border-radius: 14rpx;
+  min-width: 80rpx;
+  position: relative;
+  color: #1D1D1F;
+}
+
+.date-item.active {
+  background: #0A84FF;
+  color: #FFFFFF;
+}
+
+.date-weekday {
+  font-size: 24rpx;
+  margin-bottom: 6rpx;
+  color: inherit;
+}
+
+.date-num {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: inherit;
+}
+
+.today-dot {
+  width: 8rpx;
+  height: 8rpx;
+  background: #FF3B30;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 4rpx;
+  left: 50%;
+  margin-left: -4rpx;
+}
+
+.date-item.active .today-dot {
+  background: #FFFFFF;
+}
+
+.day-swiper {
+  margin-top: 20rpx;
+  height: auto;
+  min-height: 0;
+  width: calc(100% - 60rpx);
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+}
+
+
+
+.swiper-slide {
+  overflow: visible;
+  height: auto !important;
+}
+
+.schedule-content {
+  flex: 1;
+  padding: 0;
+  padding-top: 10rpx;
+}
+
+
+.current-session-card {
+  background: #1D1D1F;
+  color: #FFFFFF;
+  border: none;
+  margin-top: 20rpx;
+  border-radius: 28rpx;
+}
+
+.current-session-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12rpx;
+}
+
+.live-dot {
+  width: 16rpx;
+  height: 16rpx;
+  background: #FF3B30;
+  border-radius: 50%;
+  margin-right: 10rpx;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.4; }
+  100% { opacity: 1; }
+}
+
+.current-session-title {
+  font-size: 26rpx;
+  font-weight: 500;
+}
+
+.current-session-course {
+  font-size: 34rpx;
+  font-weight: 700;
+  margin-bottom: 8rpx;
+  letter-spacing: -0.02em;
+}
+
+.current-session-info {
+  display: flex;
+  gap: 20rpx;
+  font-size: 24rpx;
+  opacity: 0.9;
+  margin-bottom: 16rpx;
+}
+
+.current-session-actions {
+  display: flex;
+  gap: 16rpx;
+}
+
+.mini-btn {
+  padding: 10rpx 24rpx;
+  border-radius: 12rpx;
+  background: rgba(255, 255, 255, 0.15);
+  font-size: 24rpx;
+  color: #FFFFFF;
+  font-weight: 500;
+}
+
+.mini-btn:active {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.end-btn {
+  background: #FF3B30;
+}
+
+.end-btn:active {
+  background: #E62E24;
+}
+
+.course-list {
+  margin-top: 10rpx;
+  padding: 0;
+  min-height: 260rpx;
+}
+
+.course-list .empty-state {
+  padding: 60rpx 0;
+}
+
+/* 假期/未开学提示条：课表正常展示，仅顶部轻量提示 */
+.sem-notice-bar {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  margin: 16rpx 30rpx 0;
+  padding: 16rpx 24rpx;
+  border-radius: 16rpx;
+  background: rgba(255, 149, 0, 0.1);
+}
+
+.sem-notice-icon {
+  font-size: 26rpx;
+  flex-shrink: 0;
+}
+
+.sem-notice-text {
+  font-size: 24rpx;
+  color: #B25000;
+  line-height: 1.4;
+}
+
+/* 未登录空态：登录引导按钮 */
+.empty-login-btn {
+  margin-top: 20rpx;
+  padding: 14rpx 48rpx;
+  border-radius: 32rpx;
+  background: #0A84FF;
+  color: #FFFFFF;
+  font-size: 26rpx;
+  font-weight: 500;
+}
+
+
+.course-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24rpx;
+  padding: 28rpx 24rpx 28rpx 20rpx;
+  margin: 0 0 16rpx 0;
+  background: #FFFFFF;
+  border-radius: 28rpx;
+}
+
+.course-time {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 96rpx;
+  flex-shrink: 0;
+}
+
+.time-start {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #1D1D1F;
+  line-height: 1.2;
+}
+
+.time-end {
+  font-size: 22rpx;
+  color: #86868B;
+  line-height: 1.2;
+  margin-top: 4rpx;
+}
+
+.course-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+}
+
+.course-name {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #1D1D1F;
+  letter-spacing: -0.02em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+}
+
+.course-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  flex-shrink: 0;
+  max-width: 260rpx;
+  text-align: right;
+}
+
+.course-meta-row {
+  font-size: 22rpx;
+  color: #666666;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+}
+
+.course-meta-week {
+  font-size: 20rpx;
+  color: #999999;
+  margin-top: 6rpx;
+}
+
+.week-overview {
+  margin-top: 16rpx;
+  padding: 0 30rpx 32rpx 30rpx;
+}
+
+/* ==================== 本周课表网格（参照 aiStudy 安卓端） ==================== */
+.week-grid-wrapper {
+  position: relative;
+  background: #FFFFFF;
+  border-radius: 28rpx;
+  box-shadow: 0 4rpx 24rpx rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+  width: 100%;
+  padding: 20rpx 20rpx 24rpx;
+  box-sizing: border-box;
+}
+
+/* 网格行：时间列 + 自适应课程列（填满屏宽，无需横向滚动） */
+.week-grid {
+  display: flex;
+  align-items: stretch;
+  gap: 8rpx;
+  margin-bottom: 8rpx;
+}
+
+/* ---- 表头 ---- */
+.week-grid-header {
+  margin-bottom: 14rpx;
+  padding-bottom: 10rpx;
+  border-bottom: 2rpx solid rgba(0, 0, 0, 0.06);
+}
+
+.grid-header-cell {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rpx;
+  padding: 4rpx 0;
+  border-radius: 12rpx;
+}
+
+.gh-name {
+  font-size: 22rpx;
+  font-weight: 600;
+  color: #1D1D1F;
+  line-height: 1.2;
+}
+
+.gh-date {
+  font-size: 18rpx;
+  color: #86868B;
+  line-height: 1.2;
+}
+
+/* 今天表头：蓝色胶囊 */
+.grid-header-cell.today-header {
+  background: #E8F0FE;
+}
+
+.grid-header-cell.today-header .gh-name {
+  color: #0A7CFF;
+  font-weight: 700;
+}
+
+.grid-header-cell.today-header .gh-date {
+  color: #0A7CFF;
+}
+
+/* ---- 时间列（灰底圆角，上课黑字 + 下课灰字） ---- */
+.grid-time {
+  width: 64rpx;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10rpx 2rpx;
+  box-sizing: border-box;
+  background: #F5F5F7;
+  border-radius: 12rpx;
+}
+
+.grid-time-head {
+  font-size: 20rpx;
+  font-weight: 600;
+  color: #86868B;
+  padding: 6rpx 0;
+}
+
+.grid-time-start {
+  font-size: 20rpx;
+  font-weight: 700;
+  color: #1D1D1F;
+  line-height: 1.1;
+}
+
+.grid-time-end {
+  font-size: 18rpx;
+  color: #86868B;
+  line-height: 1.1;
+  margin-top: 4rpx;
+}
+
+/* ---- 课程格（自适应列宽） ---- */
+.grid-cell {
+  flex: 1;
+  min-width: 0;
+  min-height: 108rpx;
+  border-radius: 12rpx;
+  background: #FAFAFA;
+  padding: 4rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  gap: 6rpx;
+  box-sizing: border-box;
+}
+
+/* 今天列：淡蓝底（参照 aiStudy） */
+.grid-cell.today-col {
+  background: #F0F4FF;
+}
+
+/* 课程卡片：柔和色块圆角卡 */
+.grid-course {
+  flex: 1;
+  border-radius: 12rpx;
+  padding: 8rpx 6rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4rpx;
+  overflow: hidden;
+}
+
+.gc-name {
+  font-size: 22rpx;
+  font-weight: 600;
+  line-height: 1.3;
+  color: #1D1D1F;
+  text-align: center;
+  word-break: break-all;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.gc-room {
+  font-size: 18rpx;
+  color: #666666;
+  line-height: 1.2;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ---- 午餐/晚餐分隔行 ---- */
+.grid-break-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 6rpx 0 10rpx;
+  padding: 8rpx 0;
+}
+
+.grid-break-text {
+  font-size: 20rpx;
+  color: #AEAEB2;
+  letter-spacing: 2rpx;
+  position: relative;
+  padding: 0 24rpx;
+}
+
+.grid-break-text::before,
+.grid-break-text::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 60rpx;
+  border-top: 2rpx dashed rgba(0, 0, 0, 0.1);
+}
+
+.grid-break-text::before {
+  right: 100%;
+}
+
+.grid-break-text::after {
+  left: 100%;
+}
+
+/* ---- 当前时间段行高亮：时间列蓝字 ---- */
+.grid-time.current-time-label {
+  background: rgba(10, 132, 255, 0.08);
+}
+
+.grid-time.current-time-label .grid-time-start {
+  color: #0A84FF;
+}
+
+.grid-time.current-time-label .grid-time-end {
+  color: #0A84FF;
+  opacity: 0.6;
+}
+
+/* ---- 课程冲突格提示 ---- */
+.grid-cell.conflict-cell {
+  border: 2rpx solid #FF3B30;
+  background: rgba(255, 59, 48, 0.04);
+}
+
+.no-course {
+  font-size: 24rpx;
+  color: #ccc;
+}
+
+/* 放假 / 未开学 提示卡片 */
+.vacation-card {
+  margin: 40rpx 30rpx;
+  padding: 60rpx 40rpx;
+  background: #FFFFFF;
+  border-radius: 28rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.vacation-icon {
+  font-size: 72rpx;
+  margin-bottom: 24rpx;
+}
+
+.vacation-notice {
+  font-size: 34rpx;
+  font-weight: 700;
+  color: #1D1D1F;
+  line-height: 1.4;
+}
+
+.vacation-sub {
+  font-size: 24rpx;
+  color: #86868B;
+  margin-top: 16rpx;
+  line-height: 1.5;
+}
+
+
+

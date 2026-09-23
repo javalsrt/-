@@ -1,0 +1,202 @@
+/* 根样式 — 极简苹果设计规范
+ * 适用于所有页面，覆盖默认浏览器样式，建立全局字体与基础规则
+ */
+
+/* 中文字体回退栈（优先苹方，其次思源黑体，再系统字体） */
+@font-face {
+  font-family: 'Apple Sans';
+  font-display: swap;
+  src: local('PingFang SC'), local('Noto Sans SC'), local('Microsoft YaHei'), local('Helvetica Neue'), local('Arial'), sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  /* 16px 基准，iOS 自动调整字号 */
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'PingFang SC', 'Noto Sans SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #1D1D1F;
+  background-color: #FAFAFA;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ===== 标题层级（字重分明、宽松行高） ===== */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #1D1D1F;
+  line-height: 1.25;
+}
+
+h1 { font-size: 48px; font-weight: 700; letter-spacing: -0.03em; }
+h2 { font-size: 36px; font-weight: 600; }
+h3 { font-size: 28px; font-weight: 600; }
+h4 { font-size: 22px; font-weight: 600; }
+h5 { font-size: 18px; font-weight: 600; }
+h6 { font-size: 15px; font-weight: 600; }
+
+/* 响应式标题 */
+@media (max-width: 768px) {
+  h1 { font-size: 32px; }
+  h2 { font-size: 26px; }
+  h3 { font-size: 22px; }
+  h4 { font-size: 18px; }
+  h5 { font-size: 15px; }
+  h6 { font-size: 13px; }
+}
+
+p {
+  font-size: 16px;
+  line-height: 1.7;
+  color: #86868B;
+  font-weight: 400;
+}
+
+/* ===== 链接（极低调） ===== */
+a {
+  color: #0071E3;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+a:hover {
+  color: #0051A2;
+  text-decoration: none;
+}
+
+/* ===== 按钮基础（苹果风格） ===== */
+button, .btn {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 10px;
+  padding: 0.6em 1.2em;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  background: #1D1D1F;
+  color: #FFFFFF;
+}
+button:hover, .btn:hover {
+  opacity: 0.85;
+}
+button:active, .btn:active {
+  transform: scale(0.98);
+  opacity: 0.75;
+}
+button:disabled, .btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ===== 输入框 ===== */
+input, textarea, select {
+  font-family: inherit;
+  font-size: 15px;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: #FAFAFA;
+  padding: 10px 14px;
+  color: #1D1D1F;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+}
+input:focus, textarea:focus, select:focus {
+  border-color: #0071E3;
+  box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.08);
+  background: #FFFFFF;
+}
+input::placeholder, textarea::placeholder {
+  color: #AEAEB2;
+}
+
+/* ===== 图片 ===== */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ===== 滚动条（极简细线） ===== */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.25);
+}
+
+/* ===== 全局变量根（供 scoped 样式引用） ===== */
+:root {
+  /* 主色 */
+  --white: #FFFFFF;
+  --off-white: #FAFAFA;
+  --light-gray: #F5F5F7;
+  --mid-gray: #86868B;
+  --dark-gray: #1D1D1F;
+  --blue: #0071E3;
+  --blue-dark: #0051A2;
+  --muted: #AEAEB2;
+  --border: rgba(0, 0, 0, 0.06);
+  --border-hover: rgba(0, 0, 0, 0.12);
+  --shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+  --shadow-hover: 0 4px 20px rgba(0, 0, 0, 0.06);
+  --radius: 12px;
+  --radius-sm: 8px;
+  --radius-lg: 16px;
+  --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ===== 辅助工具类 ===== */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+@media (max-width: 768px) {
+  .container {
+    padding: 0 20px;
+  }
+}
+
+.section {
+  padding: 80px 0;
+}
+@media (max-width: 768px) {
+  .section {
+    padding: 48px 0;
+  }
+}
+
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+
+/* ===== 列表重置 ===== */
+ul, ol {
+  list-style: none;
+}

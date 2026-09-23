@@ -1,0 +1,8 @@
+<view class="tab-bar">
+  <view class="tab-bar-border"></view>
+  <view wx:for="{{list}}" wx:key="index" class="tab-bar-item {{selected === index ? 'tab-bar-item-selected' : ''}}" data-path="{{item.pagePath}}" data-index="{{index}}" bindtap="switchTab">
+    <view class="tab-bar-icon {{selected === index ? 'tab-bar-icon-selected' : ''}}">{{item.icon}}</view>
+    <text class="tab-bar-text {{selected === index ? 'tab-bar-text-selected' : ''}}">{{item.text}}</text>
+  </view>
+</view>
+

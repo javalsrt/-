@@ -1,0 +1,100 @@
+<!-- 在线作答页 -->
+<view class="page" wx:if="{{!loading}}">
+
+  <!-- 考试信息头 -->
+  <view class="exam-header">
+    <view class="header-row">
+      <view class="header-title">{{exam.title}}</view>
+      <view class="timer {{timeUp ? 'timer-up' : timeWarning ? 'timer-warn' : ''}}" wx:if="{{timerText}}">
+        <text class="timer-label">剩余时间</text>
+        <text class="timer-text">{{timerText}}</text>
+      </view>
+    </view>
+    <view class="header-meta">
+      <text>{{exam.courseName || ''}}</text>
+      <text class="meta-dot" wx:if="{{exam.courseName}}">·</text>
+      <text>{{exam.questionCount || questions.length}} 题</text>
+      <text class="meta-dot">·</text>
+      <text>满分 {{exam.totalScore}} 分</text>
+      <text class="meta-dot" wx:if="{{exam.endTime}}">·</text>
+      <text wx:if="{{exam.endTime}}">截止 {{exam.endTime}}</text>
+    </view>
+    <view class="header-desc" wx:if="{{exam.description}}">{{exam.description}}</view>
+  </view>
+
+  <!-- 题目列表 -->
+  <view class="question-card" wx:for="{{questions}}" wx:key="id" wx:for-item="q" wx:for-index="qIndex">
+
+    <!-- 题目头 -->
+    <view class="q-head">
+      <view class="q-no">{{q.index}}</view>
+      <view class="q-type">{{typeLabels[q.type]}}</view>
+      <view class="q-score">{{q.score}} 分</view>
+    </view>
+    <view class="q-content">{{q.content}}</view>
+
+    <!-- 单选题 -->
+    <block wx:if="{{q.type === 'single_choice'}}">
+      <view class="option-item {{q.selected === opt.key ? 'option-selected' : ''}}"
+        wx:for="{{q.options}}" wx:key="key" wx:for-item="opt"
+        data-qindex="{{qIndex}}" data-key="{{opt.key}}" bindtap="selectOption">
+        <view class="option-radio {{q.selected === opt.key ? 'radio-on' : ''}}"></view>
+        <text class="option-text">{{opt.text}}</text>
+      </view>
+    </block>
+
+    <!-- 多选题 -->
+    <block wx:elif="{{q.type === 'multiple_choice'}}">
+      <view class="option-item {{q.checked[opt.key] ? 'option-selected' : ''}}"
+        wx:for="{{q.options}}" wx:key="key" wx:for-item="opt"
+        data-qindex="{{qIndex}}" data-key="{{opt.key}}" bindtap="toggleOption">
+        <view class="option-check {{q.checked[opt.key] ? 'check-on' : ''}}">✓</view>
+        <text class="option-text">{{opt.text}}</text>
+      </view>
+      <view class="multi-tip">多选题：可选择多个选项</view>
+    </block>
+
+    <!-- 判断题 -->
+    <block wx:elif="{{q.type === 'true_false'}}">
+      <view class="judge-row">
+        <view class="judge-btn {{q.selected === '对' ? 'judge-on' : ''}}"
+          data-qindex="{{qIndex}}" data-value="对" bindtap="selectJudge">正确</view>
+        <view class="judge-btn {{q.selected === '错' ? 'judge-on' : ''}}"
+          data-qindex="{{qIndex}}" data-value="错" bindtap="selectJudge">错误</view>
+      </view>
+    </block>
+
+    <!-- 填空题 -->
+    <block wx:elif="{{q.type === 'fill_blank'}}">
+      <input class="text-input" placeholder="请输入答案"
+        value="{{q.textAnswer}}"
+        data-qindex="{{qIndex}}" bindinput="onTextInput" />
+    </block>
+
+    <!-- 简答题 -->
+    <block wx:elif="{{q.type === 'short_answer'}}">
+      <textarea class="text-area" placeholder="请输入作答内容（AI 将自动评分）"
+        value="{{q.textAnswer}}" maxlength="2000" auto-height
+        data-qindex="{{qIndex}}" bindinput="onTextInput" />
+    </block>
+  </view>
+
+  <!-- 底部提交栏 -->
+  <view class="bottom-bar">
+    <view class="progress-box">
+      <text class="progress-text">已答 {{answeredCount}}/{{questions.length}}</text>
+      <view class="progress-track">
+        <view class="progress-fill" style="width: {{questions.length ? answeredCount / questions.length * 100 : 0}}%"></view>
+      </view>
+    </view>
+    <button class="submit-btn {{submitting ? 'submitting' : ''}}" bindtap="handleSubmit" disabled="{{submitting}}">
+      {{submitting ? '评分中...' : '提交答卷'}}
+    </button>
+  </view>
+
+</view>
+
+<!-- 加载中 -->
+<view class="page loading-page" wx:else>
+  <text class="loading-text">加载中...</text>
+</view>

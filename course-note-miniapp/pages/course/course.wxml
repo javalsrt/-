@@ -1,0 +1,82 @@
+<!-- 课程管理/添加页面 -->
+<view class="page">
+  <view class="header">
+    <text class="header-title">{{mode === 'add' ? '添加课程' : '课程管理'}}</text>
+  </view>
+
+  <view class="course-form card" wx:if="{{mode === 'add' || mode === 'edit'}}">
+    <view class="form-item">
+      <text class="form-label">课程名称 *</text>
+      <input class="form-input" placeholder="请输入课程名称" value="{{form.name}}" bindinput="onFormInput" data-field="name" />
+    </view>
+    <view class="form-item">
+      <text class="form-label">授课教师</text>
+      <input class="form-input" placeholder="请输入教师姓名" value="{{form.teacher}}" bindinput="onFormInput" data-field="teacher" />
+    </view>
+    <view class="form-item">
+      <text class="form-label">上课教室</text>
+      <input class="form-input" placeholder="如: 教学楼A201" value="{{form.classroom}}" bindinput="onFormInput" data-field="classroom" />
+    </view>
+
+    <view class="form-row">
+      <view class="form-item half">
+        <text class="form-label">星期 *</text>
+        <picker mode="selector" range="{{weekdayOptions}}" value="{{form.dayOfWeek - 1}}" bindchange="onDayChange">
+          <view class="picker-value">{{weekdayOptions[form.dayOfWeek - 1] || '选择星期'}}</view>
+        </picker>
+      </view>
+      <view class="form-item half">
+        <text class="form-label">课程颜色</text>
+        <picker mode="selector" range="{{colorOptions}}" value="{{form.colorIndex}}" bindchange="onColorChange">
+          <view class="picker-value" style="color: {{colorOptions[form.colorIndex]}}">
+            {{colorOptions[form.colorIndex] || '选择颜色'}}
+          </view>
+        </picker>
+      </view>
+    </view>
+
+    <view class="form-row">
+      <view class="form-item half">
+        <text class="form-label">开始时间 *</text>
+        <picker mode="time" value="{{form.startTime}}" bindchange="onTimeChange" data-field="startTime">
+          <view class="picker-value">{{form.startTime || '选择时间'}}</view>
+        </picker>
+      </view>
+      <view class="form-item half">
+        <text class="form-label">结束时间 *</text>
+        <picker mode="time" value="{{form.endTime}}" bindchange="onTimeChange" data-field="endTime">
+          <view class="picker-value">{{form.endTime || '选择时间'}}</view>
+        </picker>
+      </view>
+    </view>
+
+    <view class="form-item">
+      <text class="form-label">上课周次</text>
+      <input class="form-input" placeholder="如: 1-16 (全部周次)" value="{{form.weeks}}" bindinput="onFormInput" data-field="weeks" />
+    </view>
+
+    <view class="form-actions">
+      <view class="form-submit btn-primary" bindtap="saveCourse">{{mode === 'add' ? '添加课程' : '保存修改'}}</view>
+      <view wx:if="{{mode === 'edit'}}" class="form-delete btn-secondary" bindtap="deleteCourse">删除课程</view>
+    </view>
+  </view>
+
+  <!-- 课程列表（管理模式） -->
+  <view class="course-list" wx:if="{{mode === 'list'}}">
+    <view class="add-course-btn card" bindtap="goToAdd">
+      <text class="add-icon">+</text>
+      <text class="add-text">添加新课程</text>
+    </view>
+
+    <view wx:for="{{courses}}" wx:key="id" class="course-manage-item card"
+          bindtap="editCourse" data-id="{{item.id}}"
+          style="border-left: 8rpx solid {{item.color}}">
+      <view class="course-manage-info">
+        <text class="course-name">{{item.name}}</text>
+        <text class="course-detail">{{item.teacher}} | {{item.classroom}}</text>
+        <text class="course-time">{{weekdayOptions[item.dayOfWeek - 1]}} | {{item.startTime}}-{{item.endTime}}</text>
+      </view>
+      <text class="edit-icon">&gt;</text>
+    </view>
+  </view>
+</view>

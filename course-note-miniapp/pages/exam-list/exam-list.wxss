@@ -1,0 +1,181 @@
+.page {
+  min-height: 100vh;
+  background: #F5F5F7;
+  padding-bottom: 60rpx;
+}
+
+/* ===== 筛选标签 ===== */
+.tab-bar {
+  display: flex;
+  background: #FFFFFF;
+  padding: 0 30rpx;
+  border-bottom: 1rpx solid rgba(0, 0, 0, 0.05);
+}
+
+.tab-item {
+  position: relative;
+  padding: 26rpx 30rpx;
+  font-size: 28rpx;
+  color: #86868B;
+}
+
+.tab-active {
+  color: #0A84FF;
+  font-weight: 600;
+}
+
+.tab-active::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 48rpx;
+  height: 6rpx;
+  border-radius: 3rpx;
+  background: #0A84FF;
+}
+
+/* ===== 空态 ===== */
+.empty {
+  padding: 200rpx 60rpx;
+  text-align: center;
+}
+
+.empty-title {
+  display: block;
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #1D1D1F;
+  margin-bottom: 12rpx;
+}
+
+.empty-tip {
+  display: block;
+  font-size: 24rpx;
+  color: #86868B;
+  line-height: 1.6;
+}
+
+/* ===== 卡片 ===== */
+.card {
+  margin: 20rpx 30rpx 0;
+  border-radius: 28rpx;
+  overflow: hidden;
+  background: #FFFFFF;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.04);
+}
+
+.card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 26rpx 30rpx 0;
+}
+
+.type-badge {
+  font-size: 22rpx;
+  padding: 4rpx 16rpx;
+  border-radius: 8rpx;
+  font-weight: 500;
+}
+
+.badge-exam {
+  background: rgba(10, 132, 255, 0.1);
+  color: #0A84FF;
+}
+
+.badge-homework {
+  background: rgba(52, 199, 89, 0.12);
+  color: #34C759;
+}
+
+.status-badge {
+  font-size: 22rpx;
+  padding: 4rpx 16rpx;
+  border-radius: 20rpx;
+}
+
+.status-ongoing {
+  background: rgba(255, 149, 0, 0.12);
+  color: #FF9500;
+}
+
+.status-ended {
+  background: #F2F2F7;
+  color: #86868B;
+}
+
+.status-done {
+  background: rgba(52, 199, 89, 0.12);
+  color: #34C759;
+}
+
+.exam-title {
+  padding: 20rpx 30rpx 0;
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #1D1D1F;
+}
+
+.exam-course {
+  padding: 10rpx 30rpx 0;
+  font-size: 24rpx;
+  color: #86868B;
+}
+
+.exam-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 18rpx 30rpx 0;
+}
+
+.meta-item {
+  font-size: 22rpx;
+  color: #86868B;
+}
+
+.meta-divider {
+  margin: 0 12rpx;
+  color: #D1D1D6;
+  font-size: 22rpx;
+}
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 22rpx;
+  padding: 22rpx 30rpx;
+  border-top: 1rpx solid #F2F2F7;
+}
+
+.score-label {
+  font-size: 24rpx;
+  color: #86868B;
+}
+
+.score-value {
+  font-size: 30rpx;
+  font-weight: 700;
+}
+
+.score-pass {
+  color: #34C759;
+}
+
+.score-fail {
+  color: #FF3B30;
+}
+
+.todo-label {
+  font-size: 24rpx;
+  color: #86868B;
+}
+
+.todo-action {
+  font-size: 26rpx;
+  color: #0A84FF;
+  font-weight: 500;
+}

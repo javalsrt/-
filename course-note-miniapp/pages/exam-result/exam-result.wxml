@@ -1,0 +1,64 @@
+<!-- 作答结果页 -->
+<view class="page" wx:if="{{!loading}}">
+
+  <!-- 成绩概览 -->
+  <view class="score-card {{result.passed ? 'card-pass' : 'card-fail'}}">
+    <view class="score-badge">{{result.passed ? '及格' : '未及格'}}</view>
+    <view class="score-main">
+      <text class="score-num">{{result.myScore}}</text>
+      <text class="score-total">/ {{result.totalScore}} 分</text>
+    </view>
+    <view class="score-title">{{result.title}}</view>
+    <view class="score-meta">
+      <text>{{result.courseName || ''}}</text>
+      <text class="meta-dot" wx:if="{{result.courseName}}">·</text>
+      <text>及格线 {{result.passScore}} 分</text>
+      <text class="meta-dot">·</text>
+      <text>提交于 {{result.submitTime}}</text>
+    </view>
+  </view>
+
+  <!-- 逐题明细 -->
+  <view class="answer-card" wx:for="{{answers}}" wx:key="questionId" wx:for-item="a">
+
+    <view class="a-head">
+      <view class="a-no">{{a.index}}</view>
+      <view class="a-type">{{typeLabels[a.questionType]}}</view>
+      <view class="a-score {{a.correct ? 'score-right' : a.score > 0 ? 'score-partial' : 'score-wrong'}}">
+        {{a.score == null ? '待评分' : a.score + '/' + a.maxScore + ' 分'}}
+      </view>
+    </view>
+
+    <view class="a-content">{{a.questionContent}}</view>
+
+    <view class="a-row">
+      <text class="a-label">我的作答</text>
+      <text class="a-value {{a.userAnswer ? '' : 'value-empty'}}">{{a.userAnswer || '未作答'}}</text>
+    </view>
+
+    <view class="a-row" wx:if="{{a.referenceAnswer}}">
+      <text class="a-label">参考答案</text>
+      <text class="a-value a-ref">{{a.referenceAnswer}}</text>
+    </view>
+
+    <!-- AI 点评 -->
+    <view class="ai-comment" wx:if="{{a.aiComment}}">
+      <text class="comment-tag">AI</text>
+      <text class="comment-text">{{a.aiComment}}</text>
+    </view>
+
+    <!-- 教师调分评语 -->
+    <view class="teacher-comment" wx:if="{{a.teacherComment}}">
+      <text class="comment-tag tag-teacher">师</text>
+      <text class="comment-text">{{a.teacherComment}}</text>
+    </view>
+  </view>
+
+  <!-- 底部返回 -->
+  <view class="footer-btn" bindtap="goBackToList">返回列表</view>
+
+</view>
+
+<view class="page loading-page" wx:else>
+  <text class="loading-text">加载中...</text>
+</view>

@@ -1,0 +1,65 @@
+# Java
+*.class
+*.jar
+*.war
+target/
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Node / WeChat
+node_modules/
+miniprogram_npm/
+project.private.config.json
+*.log
+
+# Env
+.env
+.env.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Uploads
+uploads/
+
+# Build
+build/
+dist/
+
+# ===== 本地私有文件（不入库） =====
+# 毕设报告、开题报告等个人文档
+*.docx
+# 数据库全量导出（含学生个人信息）
+course_note.sql
+教务数据迁移到当前学期.sql
+补齐班级课程.sql
+补齐班级原专业课_2025-2026-2.sql
+update_pwd.sql
+course-note-backend/sql/backup_*.sql
+course-note-backend/sql/student_knowledge_data.sql
+course-note-backend/sql/test_teaching_data_30class.sql
+course-note-backend/sql/class_schedule_data.sql
+course-note-backend/sql/seed_*.sql
+course-note-backend/sql/migrate_*.sql
+course-note-backend/sql/exam_homework.sql
+course-note-backend/sql/test_knowledge_documents.sql
+# 本地敏感配置（真实 API Key）
+application-local.yml
+# 导入数据（学生名单 xlsx）
+导入数据/
+UsersjayDesktop小林毕业设计导入数据/
+# 运行产物 / 临时文件
+.uploads/
+uploads/
+screenshots/
+compile.log
+*.log
+backend.log
+0
+test-lib/
+.idea/
+*.http
+test.ps1
